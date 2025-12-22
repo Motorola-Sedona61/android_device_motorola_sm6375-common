@@ -4,6 +4,9 @@
      SPDX-License-Identifier: BSD-3-Clause
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Blur radius behind Notification Shade. -->
+    <dimen name="max_shade_window_blur_radius">16dp</dimen>
+
     <!-- Doze: does this device support STATE_DOZE?  -->
     <bool name="doze_display_state_supported">true</bool>
 

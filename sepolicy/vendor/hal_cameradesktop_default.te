@@ -1,0 +1,2 @@
+# Enumerate the labelled request-manager/sync video nodes.
+allow hal_cameradesktop_default vendor_sysfs_graphics:dir search;

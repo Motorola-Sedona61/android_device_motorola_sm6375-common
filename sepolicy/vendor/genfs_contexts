@@ -53,3 +53,7 @@ genfscon sysfs /devices/platform/soc/4cc0000.qcom,qupv3_1_geni_se/4c88000.i2c/i2
 genfscon sysfs /devices/platform/soc/4cc0000.qcom,qupv3_1_geni_se/4c88000.i2c/i2c-1/1-0071/power_supply/bms u:object_r:vendor_sysfs_battery_supply:s0
 genfscon sysfs /devices/platform/soc/4cc0000.qcom,qupv3_1_geni_se/4c90000.i2c/i2c-2/2-0066/power_supply/cp-standalone u:object_r:vendor_sysfs_battery_supply:s0
 genfscon sysfs /devices/platform/soc/4cc0000.qcom,qupv3_1_geni_se/4c90000.i2c/i2c-2/2-0066/iio:device u:object_r:vendor_sysfs_sensors:s0
+
+# Rhodep userdata UFS LUN and discrete charger wakeup statistics.
+genfscon sysfs /devices/platform/soc/4804000.ufshc/host0/target0:0:0/0:0:0:4/block/sde/queue/discard_max_bytes u:object_r:vendor_sysfs_mmc_host:s0
+genfscon sysfs /devices/platform/soc/4cc0000.qcom,qupv3_1_geni_se/4c90000.i2c/i2c-2/2-0066/power_supply/cp-standalone/wakeup u:object_r:sysfs_wakeup:s0

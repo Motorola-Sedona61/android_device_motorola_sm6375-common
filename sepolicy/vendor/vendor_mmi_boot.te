@@ -1,3 +1,8 @@
 allow vendor_mmi_boot kmsg_device:chr_file w_file_perms;
 # mbm_spy reads the RTC and bootinfo to publish the boot reason.
 allow vendor_mmi_boot rtc_device:chr_file r_file_perms;
+allow vendor_mmi_boot rtc_device:chr_file ioctl;
+allowxperm vendor_mmi_boot rtc_device:chr_file ioctl RTC_RD_TIME;
+allow vendor_mmi_boot block_device:dir search;
+allow vendor_mmi_boot block_device:lnk_file r_file_perms;
+allow vendor_mmi_boot vendor_utags_block_device:blk_file { getattr open write };

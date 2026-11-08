@@ -28,3 +28,11 @@
 # Keep stock vendor helpers in vendor domains under enforcing SELinux.
 /vendor/bin/init\.mmi\.display\.sh    u:object_r:vendor_init_display_exec:s0
 /vendor/bin/mbm_spy    u:object_r:vendor_mmi_boot_exec:s0
+
+# Stock USB setup uses the Qualcomm init-shell policy.
+/vendor/bin/init\.mmi\.usb\.sh    u:object_r:vendor_qti_init_shell_exec:s0
+/vendor/bin/init\.mmi\.block_perm\.sh    u:object_r:vendor_init_block_perm_exec:s0
+/dev/block/platform/soc/4804000\.ufshc/by-name/(hob|dhob|clogo|cid|logs)    u:object_r:vendor_mmi_config_block_device:s0
+
+# The AW882xx codec reads its factory calibration from a kernel worker.
+/mnt/vendor/persist/factory/audio/aw_cali\.bin    u:object_r:vendor_aw_cali_file:s0

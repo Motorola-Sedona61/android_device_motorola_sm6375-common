@@ -1,0 +1,3 @@
+
+# libvndfwk_detect is shared by camera, audio, radio and other vendor clients.
+get_prop(domain, vendor_qti_framework_prop)

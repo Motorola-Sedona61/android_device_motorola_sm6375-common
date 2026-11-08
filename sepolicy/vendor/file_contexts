@@ -33,6 +33,3 @@
 /vendor/bin/init\.mmi\.usb\.sh    u:object_r:vendor_qti_init_shell_exec:s0
 /vendor/bin/init\.mmi\.block_perm\.sh    u:object_r:vendor_init_block_perm_exec:s0
 /dev/block/platform/soc/4804000\.ufshc/by-name/(hob|dhob|clogo|cid|logs)    u:object_r:vendor_mmi_config_block_device:s0
-
-# The AW882xx codec reads its factory calibration from a kernel worker.
-/mnt/vendor/persist/factory/audio/aw_cali\.bin    u:object_r:vendor_aw_cali_file:s0

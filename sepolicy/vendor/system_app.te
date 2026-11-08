@@ -1,6 +1,8 @@
-
-# AudioFX runs as system_app and controls effects through the audio HAL.
-hal_client_domain(system_app, hal_audio)
+# AudioFX runs only in Android. Recovery expands HAL clients as passthrough
+# domains, which would give system_app audio-server wakelock capabilities.
+not_recovery(`
+  hal_client_domain(system_app, hal_audio)
+')
 
 # Settings reads the compressed-RAM statistics exposed by zram.
 allow system_app sysfs_zram:file r_file_perms;

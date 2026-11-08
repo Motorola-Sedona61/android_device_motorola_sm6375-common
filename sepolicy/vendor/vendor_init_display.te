@@ -1,0 +1,9 @@
+type vendor_init_display, domain;
+type vendor_init_display_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(vendor_init_display)
+
+allow vendor_init_display vendor_toolbox_exec:file rx_file_perms;
+allow vendor_init_display kmsg_device:chr_file w_file_perms;
+allow vendor_init_display sysfs:dir search;
+allow vendor_init_display sysfs_graphics:dir search;
+set_prop(vendor_init_display, vendor_mot_hw_prop)

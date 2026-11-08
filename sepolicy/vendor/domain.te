@@ -1,7 +1,3 @@
-
-# libvndfwk_detect is shared by camera, audio, radio and other vendor clients.
-get_prop(domain, vendor_qti_framework_prop)
-
 # Display clients use the stock QSPM service for frame/performance hints.
 hal_client_domain(surfaceflinger, vendor_hal_qspmhal)
 hal_client_domain(bootanim, vendor_hal_qspmhal)

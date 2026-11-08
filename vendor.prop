@@ -1,4 +1,5 @@
 camera.disable_zsl_mode=1
+persist.vendor.camera.expose.aux=1
 debug.c2.use_dmabufheaps=1
 debug.egl.hw=0
 debug.sf.auto_latch_unsignaled=1
@@ -107,7 +108,8 @@ ro.vendor.display.paneltype=2
 ro.vendor.display.sensortype=2
 ro.vendor.qspm.enable=true
 sys.usb.mtp.batchcancel=1
-vendor.camera.aux.logicalCamPackagelist=NULL
+vendor.camera.aux.logicalCamPackagelist=org.lineageos.aperture,org.codeaurora.snapcam,com.motorola.camera3
+vendor.camera.aux.packagelist=org.lineageos.aperture,org.codeaurora.snapcam,com.motorola.camera3
 vendor.display.allow_tonemap_native=1
 vendor.display.comp_mask=0
 vendor.display.disable_3d_adaptive_tm=1
@@ -245,3 +247,6 @@ persist.vendor.sensors.support_direct_channel=false
 
 # USB
 vendor.usb.diag.func.name=ffs
+
+# Keep CamX on the board camera tables instead of its two-camera AOSP fallback.
+ro.vendor.qti.va_aosp.support=1

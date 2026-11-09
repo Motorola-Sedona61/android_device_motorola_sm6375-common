@@ -945,7 +945,7 @@ on property:vendor.opengles.version=*
 on property:vendor.gpu.available_frequencies=*
     setprop ro.vendor.gpu.available_frequencies ${vendor.gpu.available_frequencies}
 
-# No 6.1 msm_video driver yet: the Qualcomm video Codec2 store is not declared
-# (SM6375_HW_VIDEO), so keep its blob service from crash-looping.
+# Keep the Qualcomm video Codec2 store stopped when hardware video is disabled
+# (SM6375_HW_VIDEO), matching the conditional VINTF declaration.
 on boot && property:ro.vendor.sm6375.hw_video=false
     stop vendor-qti-media-c2-hal-1-0

@@ -106,10 +106,8 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
 DEVICE_MATRIX_FILE := hardware/qcom-caf/common/compatibility_matrix.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/manifest.xml
 
-# The Qualcomm video Codec2 store needs msm_video, which is not validated on
-# 6.1 yet. Declared without it, the store never registers and every media
-# client waits on IComponentStore/default.
-SM6375_HW_VIDEO ?= false
+# The prebuilt kernel ships msm_video; expose the Qualcomm hardware Codec2 store.
+SM6375_HW_VIDEO ?= true
 ifeq ($(SM6375_HW_VIDEO),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/manifest_c2_video.xml
 endif
@@ -119,6 +117,7 @@ BOARD_USES_METADATA_PARTITION := true
 
 # Partitions
 -include vendor/lineage/config/BoardConfigReservedSize.mk
+-include vendor/halcyon/config/BoardConfigReservedSize.mk
 BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
 BOARD_DTBOIMG_PARTITION_SIZE := 25165824
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 100663296

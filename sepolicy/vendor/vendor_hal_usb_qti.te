@@ -1,0 +1,2 @@
+# The USB HAL enumerates /sys/class/udc when determining controller state.
+allow vendor_hal_usb_qti sysfs_udc:dir r_dir_perms;

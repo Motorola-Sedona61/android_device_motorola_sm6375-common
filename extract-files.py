@@ -68,6 +68,10 @@ blob_fixups: blob_fixups_user_type = {
         .sig_replace(
             '00 ff ff b0 00 d8 09 91 b3 39 00 94 88 2e 00 d0 00 61 05 b9 20 02 f8 37 a0 18 00 d0 00 20 29 91 a4 f4 ff 97 a0 03 00 34',
             '00 ff ff b0 00 d8 09 91 00 00 80 12 88 2e 00 d0 00 61 05 b9 20 02 f8 37 a0 18 00 d0 00 20 29 91 a4 f4 ff 97 a0 03 00 34'),
+    # Open the client sockets to rild and the camera HAL, which are not in
+    # oem_2907, matching the modes Motorola uses for vendor.thermal-com.
+    'vendor/etc/init/init_thermal-engine-v2.rc': blob_fixup()
+        .regex_replace(r'(socket thermal-(?:send|recv-passive)-client stream) 0660', r'\1 0666'),
     'vendor/etc/media_profiles_blair.xml': blob_fixup()
         .regex_replace(r'\s+maxHFR(?:FrameWidth|FrameHeight|Mode)="[^"]*"', '')
         .regex_replace(r'\s*<(?:VideoEditorCap|ExportVideoProfile)\b[^>]*/>', ''),

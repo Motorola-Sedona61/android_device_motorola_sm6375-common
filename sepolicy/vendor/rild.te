@@ -2,3 +2,6 @@ hal_attribute_hwservice(vendor_hal_dataconnection_qti, vendor_hal_dataconnection
 hal_attribute_hwservice(vendor_hal_iwlanservice_qti, vendor_hal_iwlan_hwservice)
 
 get_prop(rild, vendor_persist_rcs_prop)
+
+# Thermal mitigation callbacks from thermal-engine
+unix_socket_connect(rild, vendor_thermal, vendor_thermal-engine)

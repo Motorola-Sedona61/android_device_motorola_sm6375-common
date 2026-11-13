@@ -1,0 +1,23 @@
+//
+// SPDX-FileCopyrightText: The LineageOS Project
+// SPDX-License-Identifier: Apache-2.0
+//
+
+// Loaded by vendor.qti.media.c2@1.0-service in place of libqcodec2_core.so;
+// forwards to it and adds C2StoreDmaBufUsageInfo to the store.
+cc_library_shared {
+    name: "libqcodec2_shim",
+    vendor: true,
+    srcs: ["QC2StoreShim.cpp"],
+    header_libs: [
+        "libcodec2_headers",
+        "libcodec2_internal",
+        "libhardware_headers",
+    ],
+    shared_libs: [
+        "libcodec2_vndk",
+        "liblog",
+    ],
+    required: ["libqcodec2_core"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}

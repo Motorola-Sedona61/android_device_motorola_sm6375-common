@@ -6,6 +6,8 @@
 
 import os
 
+from codec2.nv12_layout import fix_nv12_layout
+
 from extract_utils.fixups_blob import (
     blob_fixup,
     blob_fixups_user_type,
@@ -90,6 +92,18 @@ blob_fixups: blob_fixups_user_type = {
     'vendor/etc/seccomp_policy/qcrilnr@2.0.policy': blob_fixup()
         .add_line_if_missing('getppid: 1')
         .add_line_if_missing('uname: 1'),
+    # debuggerd's in-process dump needs these; without them any crash or
+    # backtrace request (bugreport) kills the Codec2 HAL with SIGSYS.
+    'vendor/etc/seccomp_policy/codec2.vendor.ext-arm64.policy': blob_fixup()
+        .add_line_if_missing('getppid: 1')
+        .add_line_if_missing('setsockopt: 1')
+        .add_line_if_missing('uname: 1'),
+    # Load the veux Codec2 store through libqcodec2_shim, which adds the
+    # DMA-BUF heap usage parameter the ION-era store lacks.
+    'vendor/bin/hw/vendor.qti.media.c2@1.0-service': blob_fixup()
+        .binary_regex_replace(rb'libqcodec2_core\.so', b'libqcodec2_shim.so'),
+    'vendor/lib64/libqcodec2_utils.so': blob_fixup()
+        .call(fix_nv12_layout),
     'vendor/lib64/libsensorndkbridge.so': blob_fixup()
         .replace_needed('android.hardware.sensors-V2-ndk.so', 'android.hardware.sensors-V3-ndk.so'),
     'system_ext/etc/permissions/moto-telephony.xml': blob_fixup()

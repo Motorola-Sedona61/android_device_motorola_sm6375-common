@@ -87,8 +87,6 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed('libtinyxml2.so', 'libtinyxml2-v34.so'),
     ('vendor/bin/qcc-vendor', 'vendor/bin/xtra-daemon', 'vendor/lib64/libqcc_sdk.so'): blob_fixup()
         .add_needed('libbinder_shim.so'),
-    'vendor/lib64/libqcodec2_core.so': blob_fixup()
-        .add_needed('libcodec2_shim.so'),
     'vendor/etc/seccomp_policy/qcrilnr@2.0.policy': blob_fixup()
         .add_line_if_missing('getppid: 1')
         .add_line_if_missing('uname: 1'),
@@ -116,6 +114,8 @@ if source in ('all', 'stock'):
     module.add_proprietary_file('proprietary-files.txt')
 if source in ('all', 'malmo'):
     module.add_proprietary_file('proprietary-files-malmo.txt')
+# Pinned veux Codec2 for the legacy video driver; kept on every extraction.
+module.add_proprietary_file('proprietary-files-veux.txt')
 
 if __name__ == '__main__':
     ExtractUtils.device(module).run()

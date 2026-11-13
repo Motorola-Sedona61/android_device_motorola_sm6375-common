@@ -1,0 +1,7 @@
+<manifest version="1.0" type="device">
+    <hal format="hidl">
+        <name>android.hardware.graphics.mapper</name>
+        <transport arch="64">passthrough</transport>
+        <fqname>@3.0::IMapper/default</fqname>
+    </hal>
+</manifest>

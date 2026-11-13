@@ -1,0 +1,14 @@
+# Codec2 for the legacy msm_vidc driver (fogos venus firmware), from
+# veux_global V13.0.5.0.SKCMIXM (SM6375). Pinned: not in the fogos or malmo dumps.
+vendor/lib64/libqcodec2_base.so|572d3cb73a570d3ea5848afc38c12323c92e1f90
+vendor/lib64/libqcodec2_basecodec.so|1fb211209653ff071ec54fd7e28ec7325a7044a5
+vendor/lib64/libqcodec2_core.so|bfb1a05b23445ba5e79edd3a2c96618938c09a54
+vendor/lib64/libqcodec2_hooks.so|6ed1eacae31274292869609bd70d630ae383d3dc
+vendor/lib64/libqcodec2_mockfilter.so|426f27cbd979a0224a05ea52565d1d2ac8ee0b0f
+vendor/lib64/libqcodec2_platform.so|9c10b9f6e14283674654c46067c082729a9cdf56
+vendor/lib64/libqcodec2_utils.so|7fdeaa9ca59db5e43b1761d2e6264e758c197c13
+vendor/lib64/libqcodec2_v4l2codec.so|a8f01cd4245cd743f1239b125c524b5d9f24f4af
+vendor/etc/media_blair/video_system_specs.json|38fb114eef72ae66968692a66c705cb41a25ccac
+
+# Malmo media_codecs_blair.xml with the veux c2.qti video entries
+vendor/etc/media_codecs_blair.xml|88e0978ce3b82bd74a752596a1439766d4af9fd6

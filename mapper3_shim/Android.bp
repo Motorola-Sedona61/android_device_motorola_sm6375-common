@@ -1,0 +1,24 @@
+//
+// SPDX-FileCopyrightText: The LineageOS Project
+// SPDX-License-Identifier: Apache-2.0
+//
+
+// IMapper 3.0 for the legacy-vidc Codec2 blobs, forwarding to mapper@4.0.
+// The stem matches the platform file_contexts entry for mapper@3.0-impl.so
+// (same_process_hal_file), so every process that may load it is allowed to.
+cc_library_shared {
+    name: "android.hardware.graphics.mapper@3.0-impl-sm6375",
+    stem: "android.hardware.graphics.mapper@3.0-impl",
+    vendor: true,
+    relative_install_path: "hw",
+    srcs: ["Mapper3Shim.cpp"],
+    shared_libs: [
+        "android.hardware.graphics.mapper@3.0",
+        "android.hardware.graphics.mapper@4.0",
+        "libhidlbase",
+        "liblog",
+        "libutils",
+    ],
+    vintf_fragments: ["android.hardware.graphics.mapper@3.0-impl-sm6375.xml"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}

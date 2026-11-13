@@ -177,6 +177,12 @@ $(call soong_config_set,lineage_health,charging_control_charging_path,/sys/modul
 SM6375_HW_VIDEO ?= true
 PRODUCT_VENDOR_PROPERTIES += ro.vendor.sm6375.hw_video=$(SM6375_HW_VIDEO)
 
+# The legacy-vidc Codec2 imports graphic buffers through IMapper 3.0
+ifeq ($(SM6375_HW_VIDEO),true)
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.mapper@3.0-impl-sm6375
+endif
+
 $(call soong_config_set_bool,stagefright,target_disable_thumbnail_block_model,true)
 
 # Legacy ION allocations of stock blobs, served by DMA-BUF heaps

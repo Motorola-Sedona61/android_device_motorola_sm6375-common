@@ -89,6 +89,12 @@ blob_fixups: blob_fixups_user_type = {
         .add_needed('libbinder_shim.so'),
     'vendor/lib64/libqcodec2_core.so': blob_fixup()
         .add_needed('libcodec2_shim.so'),
+    # The malmo Codec2 sets a client ID control that the fogos msm_vidc
+    # driver does not implement; treat setClientId() as a successful no-op.
+    'vendor/lib64/libqcodec2_v4l2codec.so': blob_fixup()
+        .sig_replace(
+            'ff c3 00 d1 fd 7b 01 a9 f4 4f 02 a9 fd 43 00 91 54 d0 3b d5 88 16 40 f9 e8 07 00 f9 03 78 40 b9 03 03 f8 37 28 08 84 52 f3 03 00 aa 28 13 a0 72',
+            '00 00 80 52 c0 03 5f d6 f4 4f 02 a9 fd 43 00 91 54 d0 3b d5 88 16 40 f9 e8 07 00 f9 03 78 40 b9 03 03 f8 37 28 08 84 52 f3 03 00 aa 28 13 a0 72'),
     'vendor/etc/seccomp_policy/qcrilnr@2.0.policy': blob_fixup()
         .add_line_if_missing('getppid: 1')
         .add_line_if_missing('uname: 1'),

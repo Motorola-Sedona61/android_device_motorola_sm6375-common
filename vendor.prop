@@ -250,3 +250,11 @@ vendor.usb.diag.func.name=ffs
 
 # Keep CamX on the board camera tables instead of its two-camera AOSP fallback.
 ro.vendor.qti.va_aosp.support=1
+
+# ART: keep app compilation off the A78 cores (6-7) while the phone is in use
+dalvik.vm.background-dex2oat-cpu-set=0,1,2,3
+dalvik.vm.background-dex2oat-threads=4
+dalvik.vm.boot-dex2oat-cpu-set=0,1,2,3,4,5,6,7
+dalvik.vm.boot-dex2oat-threads=8
+dalvik.vm.dex2oat-cpu-set=0,1,2,3,4,5
+dalvik.vm.dex2oat-threads=4

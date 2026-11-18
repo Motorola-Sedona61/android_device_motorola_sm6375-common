@@ -9,23 +9,6 @@ import /vendor/etc/init/hw/init.mmi.usb.rc
 # Moto debugging
 import /vendor/etc/init/hw/init.mmi.debug.rc
 
-# Moto diag_mdlog configuration
-import /vendor/etc/init/hw/init.mmi.diag_mdlog.rc
-
-import /vendor/etc/init/hw/init.oem.rc
-import /vendor/etc/init/hw/init.mmi.common.rc
-import /vendor/etc/init/hw/init.mmi.nonab.rc
-
-#Moto wlan configuration
-import /vendor/etc/init/hw/init.mmi.wlan.rc
-
-# Moto verified boot extension
-import /vendor/etc/init/hw/init.mmi.hab.rc
-
-# Carrier specific script
-import /vendor/etc/init/carrier/init.${ro.boot.carrier}.rc
-import /vendor/etc/init/carrier/init.default.rc
-
 on early-boot
     write /sys/module/subsystem_restart/parameters/disable_restart_work 0x0
 
@@ -340,17 +323,10 @@ on boot
    chown system system /sys/class/capsense/reset
    chown system system /sys/class/capsense/int_state
 
-
 service vendor.mmi-block-perm /vendor/bin/init.mmi.block_perm.sh
     class main
     user root
     oneshot
-
-service vendor.mmi_watchdogd /vendor/bin/mmi_watchdogd
-    class core
-    user root
-    group root system
-    disabled
 
 on charger
     trigger early-fs
@@ -366,12 +342,6 @@ on charger
 on tks-charger && property:persist.sys.tksautoboot=1
     setprop sys.powerctl "reboot,tks-charger"
 
-service vendor.batt_health /vendor/bin/batt_health
-    class late_start
-    user vendor_pwric
-    group vendor_pwric cache net_admin log system
-    disabled
-
 on property:sys.boot_completed=1
     # Change batt_info sys node permission for batt_health
     chown root system /proc/config/batt_firstusagedate
@@ -383,29 +353,12 @@ on property:sys.boot_completed=1
     chown system system /sys/class/power_supply/battery/cycle_count
     chmod 0664 /sys/class/power_supply/battery/cycle_count
     chmod 0664 /sys/class/power_supply/battery/charge_control_limit
-    start vendor.batt_health
 
 on property:sys.boot_completed=1 && property:ro.vendor.zram.product_swapon=""
     write /proc/sys/vm/page-cluster 0
     swapon_all /vendor/etc/fstab.qcom
     write /proc/sys/vm/swappiness 100
     setprop sys.sysctl.swappiness 100
-
-on property:persist.vendor.log.aplogd.enable=1
-    start vendor.aplogd
-
-on property:persist.vendor.log.aplogd.enable=0
-    stop vendor.aplogd
-
-service vendor.aplogd /vendor/bin/aplogd
-    class late_start
-    #user log
-    #group log system sdcard_rw sdcard_r media_rw mount
-    # The user and group definitions above are intentionally disabled and left
-    # only as documentation. It actually starts as root and immediately drops
-    # to log plus those groups after preserving CAP_SYS_ADMIN, which is required
-    # for kernel logging.
-    disabled
 
 # from P onwards aplogd cannot read vold.post_fs_data_done so a new property
 # shall be used to allow aplogd checking if FBE has finished /data decryption
@@ -465,22 +418,10 @@ on property:sys.boot_completed=1 && property:ro.boot.mmi.bootlog=true
     stop mmi-bootlog-logcat
     stop mmi-bootlog
 
-service vendor.hw_revs /vendor/bin/hardware_revisions.sh
-    class late_start
-    user system
-    group system
-    oneshot
-
 service vendor.mmi-touch-sh /vendor/bin/init.mmi.touch.sh
     class core
     user root
     oneshot
-
-service vendor.touchUpg /vendor/bin/touchUpg
-    class core
-    user root
-    oneshot
-    disabled
 
 service vendor.mmi-display-sh /vendor/bin/init.mmi.display.sh
     class core
@@ -499,32 +440,11 @@ service vendor.oem-super-image-detector-sh /vendor/bin/init.oem.hw.sh -M
     oneshot
     disabled
 
-service vendor.ident-fps-sh /vendor/bin/init.oem.fingerprint.sh
-    class core
-    user root
-    group drmrpc system
-    oneshot
-    disabled
-
 service vendor.hal-fps-sh /vendor/bin/init.oem.fingerprint2.sh
     class late_start
     user root
     group system
     oneshot
-
-service fpc_ident /vendor/bin/hw/fpc_ident
-    class late_start
-    user system
-    group system
-    oneshot
-    disabled
-
-service egis_ident /vendor/bin/hw/egis_ident
-    class late_start
-    user system
-    group system
-    oneshot
-    disabled
 
 service vendor.touch-dead-sh /vendor/bin/init.oem.hw.sh -f
     class main
@@ -580,27 +500,6 @@ on property:vendor.wifi.tethering=false
 
 on property:vendor.wifi.tethering=true
     write /sys/module/wlan/parameters/sar_mhs enabled
-
-# Override the AOSP sensor HAL service definition
-# from hardware/interfaces/sensors/2.0/multihal
-# to add input and uhid group access
-service vendor.sensors-hal-2-0-multihal /vendor/bin/hw/android.hardware.sensors@2.0-service.multihal
-    class hal
-    user system
-    group system wakelock context_hub input uhid
-    writepid /dev/cpuset/system-background/tasks
-    capabilities BLOCK_SUSPEND
-    rlimit rtprio 10 10
-
-# from hardware/interfaces/sensors/2.1/multihal
-# to add input and uhid group access
-service vendor.sensors-hal-2-1-multihal /vendor/bin/hw/android.hardware.sensors@2.1-service.multihal
-    class hal
-    user system
-    group system wakelock context_hub input uhid
-    writepid /dev/cpuset/system-background/tasks
-    capabilities BLOCK_SUSPEND
-    rlimit rtprio 10 10
 
 # from hardware/interfaces/sensors/aidl/multihal
 # to add input and uhid group access

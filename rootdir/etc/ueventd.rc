@@ -61,7 +61,6 @@
 ##### [MALMO SPECIFIC ueventd.rc] #####
 
 #Import rc file
-import /vendor/etc/ueventd.qcom.userdebug.rc
 
 
 # Firmware directory Path

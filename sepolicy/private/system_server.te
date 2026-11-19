@@ -1,3 +1,0 @@
-# Halcyon declares dps_prop for persist.sys.dps.* but only lets apps and the
-# shell read it; system_server reads it too.
-get_prop(system_server, dps_prop)

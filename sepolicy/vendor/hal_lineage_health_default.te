@@ -1,0 +1,4 @@
+# Charging control: hardware/motorola labels the qpnp_adaptive_charge
+# charging_enabled node vendor_sysfs_battery_supply.
+allow hal_lineage_health_default vendor_sysfs_battery_supply:dir search;
+allow hal_lineage_health_default vendor_sysfs_battery_supply:file rw_file_perms;

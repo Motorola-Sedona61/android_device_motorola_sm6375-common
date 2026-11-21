@@ -22,6 +22,8 @@ on property:ro.bootmode=mot-factory
 
 on boot
    # Set adaptive charging perms for HAL
+   chown system system /sys/module/qpnp_adaptive_charge/parameters/charging_enabled
+   chmod 0660 /sys/module/qpnp_adaptive_charge/parameters/charging_enabled
    chown system system /sys/module/qpnp_adaptive_charge/parameters/upper_limit
    chown system system /sys/module/qpnp_adaptive_charge/parameters/lower_limit
 

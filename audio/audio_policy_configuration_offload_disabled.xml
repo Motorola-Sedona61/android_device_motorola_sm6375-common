@@ -126,6 +126,17 @@
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="8000,16000,32000,48000" channelMasks="AUDIO_CHANNEL_IN_MONO"/>
                 </mixPort>
+                <!-- MMAP no-IRQ ports: 16-bit PCM @ 48 kHz only -->
+                <mixPort name="mmap_no_irq_out" role="source"
+                         flags="AUDIO_OUTPUT_FLAG_MMAP_NOIRQ">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </mixPort>
+                <mixPort name="mmap_no_irq_in" role="sink"
+                         flags="AUDIO_INPUT_FLAG_MMAP_NOIRQ">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="48000" channelMasks="AUDIO_CHANNEL_IN_STEREO"/>
+                </mixPort>
             </mixPorts>
             <devicePorts>
                 <!-- Output devices declaration, i.e. Sink DEVICE PORT -->
@@ -173,6 +184,15 @@
                 </devicePort>
                 <devicePort tagName="USB Headset In" type="AUDIO_DEVICE_IN_USB_HEADSET" role="source">
                 </devicePort>
+                <!-- MMAP no-IRQ endpoint devices: 16-bit PCM @ 48 kHz only -->
+                <devicePort tagName="MMAP No IRQ Out" type="AUDIO_DEVICE_OUT_DEFAULT" role="sink">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </devicePort>
+                <devicePort tagName="MMAP No IRQ In" type="AUDIO_DEVICE_IN_DEFAULT" role="source">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="48000" channelMasks="AUDIO_CHANNEL_IN_STEREO"/>
+                </devicePort>
             </devicePorts>
             <!-- route declaration, i.e. list all available sources for a given sink -->
             <routes>
@@ -215,6 +235,10 @@
                 <route type="mix" sink="fm input"
                        sources="FM tuner"/>
                 <route type="mix" sink="hifi_input" sources="USB Device In,USB Headset In" />
+                <route type="mix" sink="MMAP No IRQ Out"
+                       sources="mmap_no_irq_out"/>
+                <route type="mix" sink="mmap_no_irq_in"
+                       sources="MMAP No IRQ In"/>
             </routes>
         </module>
 
